@@ -30,4 +30,5 @@ public class SearchTests extends TestSetup {
 
         assertThat(page).hasURL("http://qa3magento.dev.evozon.com/catalogsearch/result/?q=woman");
     }
+
 }

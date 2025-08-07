@@ -23,4 +23,5 @@ public class AccountTests extends TestSetup{
 
         assertThat(headerAccount).isVisible();
     }
+
 }

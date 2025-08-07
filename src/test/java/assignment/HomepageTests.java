@@ -5,6 +5,8 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import org.junit.jupiter.api.Test;
 
+import java.util.regex.Pattern;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class HomepageTests extends TestSetup{
@@ -48,6 +50,27 @@ public class HomepageTests extends TestSetup{
             System.out.println("Product: " + product);
             assertThat(product).isVisible();
             assertThat(product).isEnabled();
+        }
+    }
+
+    @Test
+    void promos()
+    {
+        assertThat(page).hasURL("http://qa3magento.dev.evozon.com/");
+
+        Locator promos = page.locator(".promos li");
+
+        for(Locator promo: promos.all())
+        {
+            assertThat(page).hasURL("http://qa3magento.dev.evozon.com/");
+
+            assertThat(promo).isVisible();
+            assertThat(promo).isEnabled();
+
+            promo.click();
+            assertThat(page).hasURL(Pattern.compile("http://qa3magento\\.dev\\.evozon\\.com/.+\\.html"));
+
+            page.goBack();
         }
     }
 }

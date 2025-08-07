@@ -29,4 +29,30 @@ public class HeadlineTests extends TestSetup{
 
         assertThat(page).hasURL("http://qa3magento.dev.evozon.com/sale.html");
     }
+
+    @Test
+    void headlineNavigation()
+    {
+        assertThat(page).hasURL("http://qa3magento.dev.evozon.com/");
+
+        Locator headlines = page.locator(".nav-primary > li > a");
+        for(Locator headline: headlines.all())
+        {
+            assertThat(page).hasURL("http://qa3magento.dev.evozon.com/");
+
+            System.out.println(headline.innerText());
+            assertThat(headline).isVisible();
+            assertThat(headline).isEnabled();
+
+            headline.click();
+
+//            String path = headline.innerText().toLowerCase().replaceAll("[^a-zA-Z]\\s", "").replaceAll("\\s", "-") + ".html";
+//            assertThat(page).hasURL("http://qa3magento.dev.evozon.com/" + path);
+
+            String title = headline.textContent();
+            assertThat(page).hasTitle(title);
+
+            page.goBack();
+        }
+    }
 }
